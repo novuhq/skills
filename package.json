@@ -1,0 +1,8 @@
+{
+  "name": "novu-skills",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@novu/api": "latest"
+  }
+}
