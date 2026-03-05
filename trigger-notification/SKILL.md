@@ -13,7 +13,7 @@ Send notifications by triggering Novu workflows. Supports single, bulk, broadcas
 import { Novu } from "@novu/api";
 
 const novu = new Novu({
-  security: { secretKey: process.env.NOVU_SECRET_KEY },
+  secretKey: process.env.NOVU_SECRET_KEY,
 });
 ```
 

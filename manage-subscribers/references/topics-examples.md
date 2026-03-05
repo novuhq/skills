@@ -8,7 +8,7 @@ Topics are named groups of subscribers used for broadcast-style notifications.
 import { Novu } from "@novu/api";
 
 const novu = new Novu({
-  security: { secretKey: process.env.NOVU_SECRET_KEY },
+  secretKey: process.env.NOVU_SECRET_KEY,
 });
 
 await novu.topics.create({
@@ -72,7 +72,7 @@ curl https://api.novu.co/v1/topics \
   -H "Authorization: ApiKey $NOVU_SECRET_KEY"
 ```
 
-## Get a Specific Topic
+## Retrieve a Specific Topic
 
 ```typescript
 const topic = await novu.topics.get("engineering-team");

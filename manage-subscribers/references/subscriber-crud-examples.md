@@ -8,7 +8,7 @@
 import { Novu } from "@novu/api";
 
 const novu = new Novu({
-  security: { secretKey: process.env.NOVU_SECRET_KEY },
+  secretKey: process.env.NOVU_SECRET_KEY,
 });
 
 await novu.subscribers.create({
@@ -58,19 +58,11 @@ curl -X POST https://api.novu.co/v1/subscribers \
 
 ## Read
 
-### Get Single Subscriber
+### Retrieve Single Subscriber
 
 ```typescript
 const subscriber = await novu.subscribers.retrieve("user-123");
 console.log(subscriber.result);
-```
-
-### Search Subscribers
-
-```typescript
-const results = await novu.subscribers.search({
-  email: "jane@example.com",
-});
 ```
 
 ### cURL — Get Subscriber
@@ -78,6 +70,15 @@ const results = await novu.subscribers.search({
 ```bash
 curl https://api.novu.co/v1/subscribers/user-123 \
   -H "Authorization: ApiKey $NOVU_SECRET_KEY"
+```
+
+
+### Search Subscribers
+
+```typescript
+const results = await novu.subscribers.search({
+  email: "jane@example.com",
+});
 ```
 
 ## Update
@@ -117,6 +118,8 @@ curl -X DELETE https://api.novu.co/v1/subscribers/user-123 \
 ```
 
 ## Bulk Create
+
+At max 500 subscribers can be created in one single api call
 
 ```typescript
 await novu.subscribers.createBulk({

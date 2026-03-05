@@ -13,7 +13,7 @@ Subscribers are the recipients of your notifications. Each subscriber has a uniq
 import { Novu } from "@novu/api";
 
 const novu = new Novu({
-  security: { secretKey: process.env.NOVU_SECRET_KEY },
+  secretKey: process.env.NOVU_SECRET_KEY,
 });
 ```
 
@@ -38,7 +38,7 @@ await novu.subscribers.create({
 
 **Only `subscriberId` is required.** All other fields are optional.
 
-## Get a Subscriber
+## Retrieve a Subscriber
 
 ```typescript
 const subscriber = await novu.subscribers.retrieve("user-123");
@@ -57,6 +57,7 @@ const results = await novu.subscribers.search({
 ```typescript
 await novu.subscribers.patch(
   { firstName: "Jane", data: { plan: "enterprise" } },
+  // subscriberId
   "user-123"
 );
 ```
@@ -69,7 +70,7 @@ await novu.subscribers.delete("user-123");
 
 ## Bulk Create
 
-Create multiple subscribers at once:
+Create multiple subscribers at once. 500 subscribers can be created in one request.
 
 ```typescript
 await novu.subscribers.createBulk({
@@ -98,8 +99,8 @@ await novu.topics.create({
 
 ```typescript
 await novu.topics.subscriptions.create(
-  { subscriptions: ["user-1", "user-2", "user-3"] },
-  "engineering-team"
+  { subscriptions: ["subscriberId-1", "subscriberId-2", "subscriberId-3"] },
+  "engineering-team-topic"
 );
 ```
 
@@ -107,21 +108,23 @@ await novu.topics.subscriptions.create(
 
 ```typescript
 await novu.topics.subscriptions.delete(
-  { subscriptions: ["user-3"] },
-  "engineering-team"
+  { subscriptions: ["subscriberId-1", "subscriberId-2"] },
+  "engineering-team-topic"
 );
 ```
 
 ### List Topics
 
 ```typescript
-const topics = await novu.topics.list({});
+const topics = await novu.topics.list({
+
+});
 ```
 
 ### Delete a Topic
 
 ```typescript
-await novu.topics.delete("engineering-team");
+await novu.topics.delete("engineering-team-topic");
 ```
 
 ### Trigger to a Topic
@@ -131,7 +134,7 @@ See [trigger-notification](../trigger-notification/) for topic trigger examples.
 ```typescript
 await novu.trigger({
   workflowId: "project-update",
-  to: { type: "Topic", topicKey: "engineering-team" },
+  to: { type: "Topic", topicKey: "engineering-team-topic" },
   payload: { message: "Sprint review at 3pm" },
 });
 ```
@@ -144,8 +147,13 @@ Set channel-specific credentials for push and chat integrations.
 
 ```typescript
 await novu.subscribers.credentials.update(
-  { providerId: "fcm", credentials: { deviceTokens: ["fcm-device-token-here"] } },
-  "user-123"
+  { 
+    providerId: "fcm", 
+    //  use integrationIdentifier if there are multiple fcm type active integrations
+    integrationIdentifier: "fcm-abc-123", 
+    credentials: { deviceTokens: ["fcm-device-token-here"] } 
+  },
+  "subsriberId-1"
 );
 ```
 
@@ -153,16 +161,12 @@ await novu.subscribers.credentials.update(
 
 ```typescript
 await novu.subscribers.credentials.update(
-  { providerId: "apns", credentials: { deviceTokens: ["apns-device-token-here"] } },
-  "user-123"
-);
-```
-
-### Slack Webhook
-
-```typescript
-await novu.subscribers.credentials.update(
-  { providerId: "slack", credentials: { webhookUrl: "https://hooks.slack.com/services/..." } },
+  { 
+    providerId: "apns", 
+    // use integrationIdentifier if there are multiple apns type active integrations
+    integrationIdentifier: "fcm-abc-123", 
+    credentials: { deviceTokens: ["apns-device-token-here"] } 
+  },
   "user-123"
 );
 ```
@@ -174,6 +178,7 @@ await novu.subscribers.credentials.update(
 3. **Subscriber data is per-environment** — dev, staging, and production have separate subscriber records.
 4. **Topics must exist before triggering** — create the topic and add subscribers before sending to it.
 5. **Deleting a subscriber doesn't delete their notifications** — existing notifications remain in the system.
+6. **Adding non existent subscriber to topic** - if non existent subscriber is added to topic, it is not autocreated in that environment and hence not added to the topic. Always create subscribers before adding into the topic
 
 ## References
 

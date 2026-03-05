@@ -8,23 +8,29 @@ Subscriber credentials store channel-specific tokens and webhook URLs needed for
 import { Novu } from "@novu/api";
 
 const novu = new Novu({
-  security: { secretKey: process.env.NOVU_SECRET_KEY },
+  secretKey: process.env.NOVU_SECRET_KEY,
 });
 
 await novu.subscribers.credentials.update(
-  { providerId: "fcm", credentials: { deviceTokens: ["fcm-device-token-abc123"] } },
-  "user-123"
+  { 
+    providerId: "fcm", 
+    // use integrationIdentifier if there are multiple fcm type active integrations
+    integrationIdentifier: "fcm-abc-123", 
+    credentials: { deviceTokens: ["fcm-device-token-here"] } 
+  },
+  "subsriberId-1"
 );
 ```
 
 ### Multiple Device Tokens
 
-A subscriber can have multiple devices:
+A subscriber can have multiple devices. Each device has one device tokens.
 
 ```typescript
 await novu.subscribers.credentials.update(
   {
     providerId: "fcm",
+    integrationIdentifier: "fcm-abc-123", 
     credentials: {
       deviceTokens: [
         "token-phone-abc",
@@ -55,29 +61,12 @@ await novu.subscribers.credentials.update(
 );
 ```
 
-## Slack
-
-```typescript
-await novu.subscribers.credentials.update(
-  { providerId: "slack", credentials: { webhookUrl: "https://hooks.slack.com/services/T00/B00/xxxx" } },
-  "user-123"
-);
-```
 
 ## Discord
 
 ```typescript
 await novu.subscribers.credentials.update(
   { providerId: "discord", credentials: { webhookUrl: "https://discord.com/api/webhooks/123/abc" } },
-  "user-123"
-);
-```
-
-## Microsoft Teams
-
-```typescript
-await novu.subscribers.credentials.update(
-  { providerId: "msteams", credentials: { webhookUrl: "https://outlook.office.com/webhook/..." } },
   "user-123"
 );
 ```
@@ -90,6 +79,7 @@ curl -X PUT https://api.novu.co/v1/subscribers/user-123/credentials \
   -H "Content-Type: application/json" \
   -d '{
     "providerId": "fcm",
+    integrationIdentifier: "fcm-abc-123", 
     "credentials": {
       "deviceTokens": ["fcm-device-token-abc123"]
     }
@@ -98,6 +88,6 @@ curl -X PUT https://api.novu.co/v1/subscribers/user-123/credentials \
 
 ## Important Notes
 
-- Device tokens are set as an array — providing a new array **replaces** existing tokens, it does not append
-- Each provider (FCM, APNS, Slack, etc.) must be configured as an integration in the Novu dashboard before credentials work
-- Push tokens expire — implement token refresh logic in your mobile app
+- Device tokens are set as an array — providing a new array **replaces** existing tokens in `PUT` api request and new tokens are appended in case of `PATCH` request.
+- Each provider (FCM, APNS etc.) must be configured as an integration in the Novu dashboard before storing the credentials.
+- Push tokens expire — For FCM and EXPO, novu handles the expiration of stale tokens. For rest other providers, user need to handle the expiry of tokens.
