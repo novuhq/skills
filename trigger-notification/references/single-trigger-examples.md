@@ -129,10 +129,13 @@ const result = await novu.trigger({
   to: "admin-001",
   payload: { message: "CPU usage above 90%" },
   overrides: {
-    email: {
-      from: "alerts@example.com",
-      replyTo: "devops@example.com",
-    },
+    "providers": {
+      "integration-identifier": {
+        from: "alerts@example.com",
+        cc: ["user1@example.com", "user2@example.com"],
+        replyTo: "support@example.com",
+      }
+    }
   },
 });
 ```

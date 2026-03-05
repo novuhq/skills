@@ -2,7 +2,7 @@
 
 ## Idempotency
 
-Always provide a `transactionId` for workflows with delay or digest steps. This enables cancellation and prevents duplicate sends on retries:
+`transactionId` is unique to each workflow trigger (event). Novu generates unique transactionId if not provided during trigger. It can be used for idempotennt workflow run and to cancel the pending workflow run later
 
 ```typescript
 import { randomUUID } from "crypto";

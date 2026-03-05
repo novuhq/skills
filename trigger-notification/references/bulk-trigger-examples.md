@@ -8,7 +8,7 @@ Send up to 100 events in a single request:
 import { Novu } from "@novu/api";
 
 const novu = new Novu({
-  security: { secretKey: process.env.NOVU_SECRET_KEY },
+  secretKey: process.env.NOVU_SECRET_KEY,
 });
 
 const result = await novu.triggerBulk({
@@ -84,5 +84,5 @@ curl -X POST https://api.novu.co/v1/events/trigger/bulk \
 
 - Maximum **100 events** per bulk request
 - Each event in the bulk request is independent — different workflows, subscribers, and payloads are allowed
-- Errors are returned per-event, not for the entire batch
+- Errors/Success responses are returned per-event, not for the entire batch
 - For very large sends (thousands+), consider using topic-based triggers instead

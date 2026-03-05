@@ -7,7 +7,7 @@ inputs:
     description: "Server-side API key from https://dashboard.novu.co/api-keys. Used by @novu/api."
     required: true
     type: secret
-  - name: NOVU_APP_ID
+  - name: NOVU_APPLICATION_IDENTIFIER
     description: "Application identifier for client-side Inbox integration. Found in dashboard integration settings."
     required: false
     type: string
@@ -26,7 +26,7 @@ Novu is a notification infrastructure platform for sending notifications across 
 | --- | --- |
 | [trigger-notification](./trigger-notification) | Sending notifications, triggering workflows, single or bulk sends |
 | [manage-subscribers](./manage-subscribers) | Creating, updating, listing, or deleting subscribers; managing topics and groups |
-| [inbox-integration](./inbox-integration) | Adding the in-app notification inbox, bell icon, or notification feed to a web app |
+| [inbox-integration](./inbox-integration) | Adding the in-app notification inbox, bell icon, or notification feed to a web app and react native app |
 | [manage-preferences](./manage-preferences) | Setting up subscriber notification preferences, workflow defaults, or the Preferences UI |
 
 ## Quick Routing
@@ -49,24 +49,38 @@ Novu is a notification infrastructure platform for sending notifications across 
 | `@novu/api` | Server | Trigger notifications, manage subscribers/topics/workflows via REST |
 | `@novu/react` | Client | React Inbox component, Notifications, Preferences, Bell |
 | `@novu/nextjs` | Client | Next.js-optimized Inbox integration |
+| `@novu/react-native` | Client | React native hooks based Inbox integration |
 | `@novu/js` | Client | Vanilla JS client for non-React apps |
 
 **Important distinctions:**
-- `@novu/api` is for **triggering** events and **managing** resources (subscribers, topics)
-- `@novu/react` / `@novu/js` are for **client-side** Inbox integration only
+- `@novu/api` is for **triggering** workflow to send notifications and **managing** resources (subscribers, topics, contexts)
+- `@novu/react` / `@novu/js` are for **client-side** Inbox integrations and preferences
 
 ## Common Setup
 
 ```bash
-npm install @novu/api
+npm i @novu/api
 ```
 
 ```typescript
 import { Novu } from "@novu/api";
 
 const novu = new Novu({
-  security: { secretKey: process.env.NOVU_SECRET_KEY },
+ secretKey: process.env.NOVU_SECRET_KEY,
 });
+```
+
+```typescript
+await novu.trigger({
+  workflowId: "workflowId",
+  to: "subscriberId",
+  payload: {
+    "comment_id": "string",
+    "post": {
+      "text": "string",
+    },
+  },
+})
 ```
 
 ## Resources

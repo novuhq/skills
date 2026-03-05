@@ -24,7 +24,7 @@ Get your API key from [dashboard.novu.co/api-keys](https://dashboard.novu.co/api
 import { Novu } from "@novu/api";
 
 const novu = new Novu({
-  security: { secretKey: process.env.NOVU_SECRET_KEY },
+  secretKey: process.env.NOVU_SECRET_KEY,
 });
 ```
 
@@ -35,12 +35,12 @@ pip install novu-py
 ```
 
 ```python
+import novu_py
 from novu_py import Novu
-import os
 
-novu = Novu(
-    security=Security(secret_key=os.environ["NOVU_SECRET_KEY"]),
-)
+with Novu(
+    secret_key="YOUR_SECRET_KEY_HERE",
+) as novu:
 ```
 
 ## cURL

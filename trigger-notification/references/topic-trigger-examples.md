@@ -8,7 +8,7 @@ Topics let you send notifications to groups of subscribers. Create a topic, add 
 import { Novu } from "@novu/api";
 
 const novu = new Novu({
-  security: { secretKey: process.env.NOVU_SECRET_KEY },
+  secretKey: process.env.NOVU_SECRET_KEY,
 });
 
 // Create a topic
@@ -79,6 +79,6 @@ curl -X POST https://api.novu.co/v1/events/trigger \
 ## Important Notes
 
 - Topics must be created before triggering to them
-- A subscriber can belong to multiple topics
+- One subscriber can belong to multiple topics
 - Topic triggers fan out to all subscribed members individually
 - Duplicate subscribers across multiple topics in the same trigger are automatically deduplicated

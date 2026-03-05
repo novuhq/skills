@@ -34,7 +34,7 @@ const result = await novu.trigger({
 
 ### Trigger with Inline Subscriber Creation
 
-If the subscriber doesn't exist yet, provide the full object — Novu auto-creates it:
+If the subscriber doesn't exist yet, provide the full object — Novu upserts the subscriber:
 
 ```typescript
 const result = await novu.trigger({
@@ -51,7 +51,7 @@ const result = await novu.trigger({
 
 ### Trigger with Transaction ID
 
-Use `transactionId` for idempotency and to enable cancellation of delayed/digested notifications:
+Use custom `transactionId` for idempotency:
 
 ```typescript
 const result = await novu.trigger({
@@ -89,6 +89,7 @@ Send to **all subscribers** in the environment:
 
 ```typescript
 const result = await novu.triggerBroadcast({
+  // here name field is for workflowId
   name: "system-announcement",
   payload: {
     message: "Scheduled maintenance at 2am UTC",
@@ -103,10 +104,10 @@ Send to all subscribers in a topic:
 ```typescript
 const result = await novu.trigger({
   workflowId: "project-update",
-  to: {
+  to: [{
     type: "Topic",
     topicKey: "project-alpha-watchers",
-  },
+  }],
   payload: { update: "New release deployed" },
 });
 ```
@@ -141,23 +142,23 @@ const result = await novu.trigger({
   to: "subscriber-123",
   payload: { message: "Server down" },
   overrides: {
-    email: {
-      from: "alerts@example.com",
-      replyTo: "support@example.com",
-    },
-    sms: {
-      from: "+15551234567",
-    },
+    "providers": {
+      "integration-identifier": {
+        from: "alerts@example.com",
+        cc: ["user1@example.com", "user2@example.com"],
+        replyTo: "support@example.com",
+      }
+    }
   },
 });
 ```
 
 ## Common Pitfalls
 
-1. **`workflowId` is the identifier, not the display name** — use the slug/identifier you set when defining the workflow, not its human-readable name.
-2. **Subscriber must exist or be provided inline** — triggering to a non-existent `subscriberId` string will fail. Either create the subscriber first or pass the full subscriber object in `to`.
+1. **`workflowId` is the identifier, not the display name** — use the identifier you set when defining the workflow, not its human-readable name. Novu creates workflowId automatically if not provided
+2. **Subscriber upsert** — triggering to a non-existent `subscriberId` or `subscriber` object string will create the subscriber with that subscriberId.
 3. **Bulk trigger limit is 100 events** — chunk larger batches into groups of 100.
-4. **`transactionId` is required for cancellation** — you cannot cancel a trigger without it. Always provide one for workflows with delay or digest steps.
+4. **`transactionId` is required for cancellation** — you cannot cancel a trigger without it. Either provide custom transactionId or store novu generated transactionId if usecase is to cancel the workflow run (trigger event) later.
 5. **Payload is validated against the workflow's `payloadSchema`** — if the workflow defines a schema, the trigger will fail if the payload doesn't match.
 
 ## References
