@@ -74,23 +74,29 @@ import { Novu } from "@novu/js";
 const novu = new Novu({
   applicationIdentifier: "YOUR_NOVU_APP_ID",
   subscriberId: "subscriber-123",
+  // subscriberHash is required if HMAC encryption is turned on. Read more https://docs.novu.co/platform/inbox/prepare-for-production#secure-your-inbox-with-hmac-encryption
   subscriberHash: "hmac-hash",
 });
 
-// Get preferences
+// List preferences
 const { data: preferences } = await novu.preferences.list();
 
 // Update a specific workflow
-await novu.preferences.update("weekly-newsletter", {
-  channels: {
-    email: false,
-  },
+await novu.preferences.update({
+  channels: { email: true, push: true },
+  workflowId: "workflow-id",
 });
+
+// bulk update preferences
+await novu.preferences.bulkUpdate([
+  { workflowId: 'workflow_id', channels: { email: false, sms: true } },
+  { workflowId: 'workflow_id_2', channels: { email: true, sms: false, in_app: true } },
+]);
 ```
 
 ## Common Preference Operations
 
-### Disable All Email
+### Disable email at global preference level.
 
 ```typescript
 await novu.subscribers.preferences.update(
@@ -99,16 +105,7 @@ await novu.subscribers.preferences.update(
 );
 ```
 
-### Opt Out of a Specific Workflow
-
-```typescript
-await novu.subscribers.preferences.update(
-  { workflowId: "marketing-campaign", enabled: false },
-  "subscriber-123"
-);
-```
-
-### Re-Enable a Channel
+### Opt out of email channel for a specific workflow
 
 ```typescript
 await novu.subscribers.preferences.update(

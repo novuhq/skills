@@ -104,11 +104,11 @@ preferences.forEach((pref) => {
 });
 
 // Toggle a preference
-await novu.preferences.update("workflow-id", {
-  channels: {
-    email: !currentEmailPreference,
-  },
+
+preferences?.[1]?.update({
+  channels: { email: true, push: true },
 });
+
 ```
 
 ## Next.js Example
@@ -140,7 +140,7 @@ export function PreferencesPanel({
 
 ## Important Notes
 
-- Read-only workflows (`readOnly: true`) are **hidden** from the Preferences UI — subscribers cannot change them
+- Read-only workflows (`readOnly: true`) are **hidden** from the Preferences UI — subscribers cannot change them. It signifies that workflow is critical
 - The Preferences component requires a parent `<Inbox>` wrapper for the Novu context
-- Preferences are per-subscriber and per-environment (dev, staging, prod)
+- Preferences are per-subscriber and per-environment (dev, staging, prod) and scoped per context
 - Changes made via the UI are immediately reflected in notification delivery

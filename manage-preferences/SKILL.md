@@ -6,7 +6,7 @@ description: Configure notification preferences in Novu at the workflow and subs
 # Manage Preferences
 
 Novu has a two-level preference system:
-1. **Workflow defaults** — set by the developer in code, apply to all subscribers
+1. **Workflow defaults** — configured in the dashboard for UI based workflows or via code in framework based workflows, apply to all subscribers.
 2. **Subscriber overrides** — set by end users, override workflow defaults
 
 ## Workflow-Level Preferences
@@ -76,7 +76,7 @@ Subscribers can override workflow defaults (unless `readOnly: true`).
 import { Novu } from "@novu/api";
 
 const novu = new Novu({
-  security: { secretKey: process.env.NOVU_SECRET_KEY },
+  secretKey: process.env.NOVU_SECRET_KEY,
 });
 
 const preferences = await novu.subscribers.preferences.list({
@@ -205,17 +205,6 @@ preferences: {
 
 Only in-app is on. Subscribers can enable other channels if desired.
 
-### Digest Preferences
-
-```typescript
-preferences: {
-  all: { enabled: true, readOnly: false },
-  channels: {
-    email: { enabled: true },  // daily digest email
-    inApp: { enabled: true },  // real-time in-app
-  },
-}
-```
 
 ## Common Pitfalls
 
