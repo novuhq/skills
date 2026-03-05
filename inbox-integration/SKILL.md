@@ -29,7 +29,7 @@ function App() {
     <Inbox
       applicationIdentifier="YOUR_NOVU_APP_ID"
       subscriberId="subscriber-123"
-      subscriberHash="HMAC_HASH"  // Required in production
+      subscriberHash="HMAC_HASH"  // Required if HMAC encryption is enabled
     />
   );
 }
@@ -207,6 +207,9 @@ Organize notifications into tabs:
 
 **Required in production** to prevent subscriber impersonation.
 
+Read more on Novu docs
+https://docs.novu.co/platform/inbox/prepare-for-production#secure-your-inbox-with-hmac-encryption
+
 ### Generate the Hash (Server-Side)
 
 ```typescript
@@ -243,7 +246,7 @@ subscriber_hash = hmac.new(
 ## Common Pitfalls
 
 1. **`applicationIdentifier` is NOT the same as `NOVU_SECRET_KEY`** — the app ID is a public identifier safe for client-side use. The secret key is server-only.
-2. **HMAC hash is mandatory in production** — without it, anyone can impersonate a subscriber by guessing their ID.
+2. **HMAC hash is mandatory if HMAC encryption is enabled** — without it, anyone can impersonate a subscriber by guessing their ID.
 3. **The Inbox only shows notifications from workflows with an `inApp` step** — if your workflow doesn't include `step.inApp()`, nothing appears in the Inbox.
 4. **`"use client"` is required in Next.js App Router** — the Inbox component is client-side only.
 5. **Real-time updates are automatic** — the Inbox uses WebSockets internally. No additional setup needed.

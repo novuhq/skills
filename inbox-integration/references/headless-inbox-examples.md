@@ -35,11 +35,31 @@ notifications.forEach((notification) => {
 ## Count Notifications
 
 ```typescript
-const { data: counts } = await novu.notifications.count({
+
+// with single filter
+const count = await novu.notifications.count({
   read: false,
+  seen: false,
+  archived: false,
+  severity: SeverityLevelEnum.HIGH,
+   // data attributes
+  data: {
+    type: 'login',
+  },
 });
 
-console.log(`You have ${counts.count} unread notifications`);
+// with multiple filters 
+
+const counts = await novu.notifications.count({
+  filters: [
+    { read: false }, 
+    { seen: false }, 
+    { severity: SeverityLevelEnum.HIGH }
+    { archived: true }, 
+    { tags: ['tag1'] }, 
+    { data: { type: 'login' } }
+  ],
+});
 ```
 
 ## Mark as Read
@@ -99,12 +119,9 @@ await novu.notifications.deleteAll();
 const { data: preferences } = await novu.preferences.list();
 
 // Update a workflow preference
-await novu.preferences.update("workflow-id", {
-  channels: {
-    email: true,
-    sms: false,
-    inApp: true,
-  },
+await novu.preferences.update({
+  channels: { email: true, push: true },
+  workflowId: "workflow-id",
 });
 ```
 
