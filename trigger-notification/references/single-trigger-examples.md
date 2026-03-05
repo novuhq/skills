@@ -130,7 +130,7 @@ const result = await novu.trigger({
   payload: { message: "CPU usage above 90%" },
   overrides: {
     "providers": {
-      "integration-identifier": {
+      "sendgrid": {
         from: "alerts@example.com",
         cc: ["user1@example.com", "user2@example.com"],
         replyTo: "support@example.com",

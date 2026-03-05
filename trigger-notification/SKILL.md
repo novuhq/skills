@@ -143,7 +143,7 @@ const result = await novu.trigger({
   payload: { message: "Server down" },
   overrides: {
     "providers": {
-      "integration-identifier": {
+      "sendgrid": {
         from: "alerts@example.com",
         cc: ["user1@example.com", "user2@example.com"],
         replyTo: "support@example.com",
