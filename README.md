@@ -35,6 +35,21 @@ Agent Skills for building multi-channel notification systems with [Novu](https:/
 
 [Agent Skills](https://agentskills.io) are an open standard that gives AI agents (Claude Code, Cursor, Copilot, etc.) the context they need to work with specific tools and platforms.
 
+## Prerequisites
+
+- A [Novu](https://novu.co) account
+- Secret key from [dashboard.novu.co/api-keys](https://dashboard.novu.co/api-keys)
+
+## Setup
+
+Install the Novu skills into your project using the `skills` CLI:
+
+```bash
+npx skills add novuhq/skills
+```
+
+This pulls the skills from the [novuhq/skills](https://github.com/novuhq/skills) GitHub repository and makes them available to your AI agent (Claude Code, Cursor, Copilot, etc.).
+
 ## Available Skills
 
 | Skill | Description |
@@ -44,10 +59,7 @@ Agent Skills for building multi-channel notification systems with [Novu](https:/
 | [inbox-integration](./inbox-integration) | Integrate the in-app notification inbox into React, Next.js, or vanilla JS |
 | [manage-preferences](./manage-preferences) | Configure workflow and subscriber notification preferences |
 
-## Prerequisites
 
-- A [Novu](https://novu.co) account
-- API key from [dashboard.novu.co/api-keys](https://dashboard.novu.co/api-keys)
 
 ## SDKs
 
