@@ -1,6 +1,13 @@
 ---
 name: inbox-integration
-description: Integrate Novu's in-app notification inbox into web applications. Supports React, Next.js, and vanilla JavaScript. Includes the Inbox component (bell icon + notification feed), Notifications list, Preferences panel, and headless hooks. Use when adding an in-app notification center, bell icon, notification feed, or real-time notification updates to a frontend application.
+description: Integrate and style Novu's in-app notification inbox into web applications. Supports React, Next.js, and vanilla JavaScript. Includes setup (bell icon + notification feed), appearance customization (variables, elements, dark mode, Tailwind, CSS modules, contextual callbacks, severity), localization, tabs, preferences panel, and headless mode. Use when adding an in-app notification center, customizing the inbox to match brand identity, applying a dark theme, styling with Tailwind or CSS modules, or building a fully custom notification shell.
+allowed-tools: WebFetch
+references:
+  - references/react-inbox-examples.md
+  - references/nextjs-inbox-examples.md
+  - references/headless-inbox-examples.md
+  - references/security.md
+  - references/inbox-styling.md
 ---
 
 # Inbox Integration
@@ -155,7 +162,20 @@ function App() {
 
 ## Appearance Customization
 
-Customize the look using the `appearance` prop:
+> For the full styling reference including all variables, element keys, callbacks, severity, and responsive layout, see `references/inbox-styling.md` or fetch the live docs:
+> https://docs.novu.co/platform/inbox/configuration/styling
+
+| Task | How |
+|------|-----|
+| Match brand colors / change fonts | Use `appearance.variables` — quick reference below |
+| Dark mode | Import `dark` from `@novu/react/themes`, pass as `appearance.baseTheme` |
+| Style elements with Tailwind, CSS modules, or inline styles | Use `appearance.elements` — see `references/inbox-styling.md` |
+| Style dynamically based on unread count or notification data | Use `appearance.elements` callbacks — see `references/inbox-styling.md` |
+| Customize severity indicator colors | Use `colorSeverityHigh/Medium/Low` in `appearance.variables` |
+| Replace default icons | Use `appearance.icons` — see `references/inbox-styling.md` |
+| Fully custom shell (no default bell/popover chrome) | Use `<InboxContent />` — see `references/headless-inbox-examples.md` |
+
+### Quick reference: variables
 
 ```tsx
 <Inbox
@@ -166,12 +186,32 @@ Customize the look using the `appearance` prop:
       colorPrimary: "#0081F1",
       colorBackground: "#ffffff",
       colorForeground: "#1A1523",
+      colorNeutral: "#8B8D98",
       fontSize: "14px",
       borderRadius: "8px",
     },
   }}
 />
 ```
+
+### Quick reference: dark mode
+
+```tsx
+import { Inbox } from "@novu/react";
+import { dark } from "@novu/react/themes";
+
+function App() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_NOVU_APP_ID"
+      subscriberId="subscriber-123"
+      appearance={{ baseTheme: dark }}
+    />
+  );
+}
+```
+
+`variables` always take precedence over `baseTheme` when both are provided.
 
 ## Localization
 
@@ -258,3 +298,4 @@ subscriber_hash = hmac.new(
 - [Next.js Inbox Examples](./references/nextjs-inbox-examples.md)
 - [Headless Inbox (Vanilla JS)](./references/headless-inbox-examples.md)
 - [Security (HMAC)](./references/security.md)
+- [Styling & Theming](./references/inbox-styling.md)
