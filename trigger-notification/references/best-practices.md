@@ -1,5 +1,7 @@
 # Best Practices
 
+> Designing the workflow itself (channels, severity, `critical`, digest, conditions, templates)? See [`design-workflow/`](../../design-workflow). This file covers **trigger-side** best practices only — idempotency, retries, payload design, and topic vs bulk choice.
+
 ## Idempotency
 
 `transactionId` is unique to each workflow trigger (event). Novu generates unique transactionId if not provided during trigger. It can be used for idempotennt workflow run and to cancel the pending workflow run later
