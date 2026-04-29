@@ -1,5 +1,5 @@
 ---
-name: design-workflow
+name: novu-design-workflow
 description: Design notification workflows the Novu way — choose channels, set severity, decide when a workflow is critical, configure digests, and route based on subscriber state. Applies to BOTH dashboard-authored and code-first (`@novu/framework`) workflows. Use when planning a new workflow, deciding which channels to include, picking severity, configuring digest behavior, or matching a use case (order confirmation, payment failed, account suspended, comment, trial expiring, password reset, webhook fan-out, fetch-then-notify) to a proven template.
 ---
 

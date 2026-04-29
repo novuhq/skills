@@ -1,5 +1,5 @@
 ---
-name: trigger-notification
+name: novu-trigger-notification
 description: Trigger Novu notification workflows to send messages across email, SMS, push, chat, and in-app channels. Supports single triggers, bulk triggers, broadcast to all subscribers, topic-based targeting, and cancellation. Use when sending transactional notifications, alerts, or any event-driven messages.
 inputs:
   - name: NOVU_SECRET_KEY

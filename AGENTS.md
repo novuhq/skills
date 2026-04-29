@@ -12,31 +12,31 @@ This repository ships seven discrete agent skills under [`skills/`](./skills). E
 
 | Skill | Use When... |
 | --- | --- |
-| [design-workflow](./skills/design-workflow) | Designing or planning a new workflow; choosing channels, severity, `critical`, digest behavior; matching a use case to a template |
-| [dashboard-workflows](./skills/dashboard-workflows) | Authoring step content (subject, body, `editorType`, headers, conditions) on workflows defined in the Novu Dashboard or via the Novu MCP |
-| [trigger-notification](./skills/trigger-notification) | Sending notifications, triggering workflows, single or bulk sends |
-| [manage-subscribers](./skills/manage-subscribers) | Creating, updating, listing, or deleting subscribers; managing topics and groups |
-| [inbox-integration](./skills/inbox-integration) | Adding the in-app notification inbox, bell icon, or notification feed to a web app and react native app |
-| [manage-preferences](./skills/manage-preferences) | Setting up subscriber notification preferences, workflow defaults, or the Preferences UI |
-| [framework-integration](./skills/framework-integration) | Defining notification workflows in code with `@novu/framework` (Bridge Endpoint, steps, controls, React Email, deployment) |
+| [`novu-design-workflow`](./skills/design-workflow) | Designing or planning a new workflow; choosing channels, severity, `critical`, digest behavior; matching a use case to a template |
+| [`novu-dashboard-workflows`](./skills/dashboard-workflows) | Authoring step content (subject, body, `editorType`, headers, conditions) on workflows defined in the Novu Dashboard or via the Novu MCP |
+| [`novu-trigger-notification`](./skills/trigger-notification) | Sending notifications, triggering workflows, single or bulk sends |
+| [`novu-manage-subscribers`](./skills/manage-subscribers) | Creating, updating, listing, or deleting subscribers; managing topics and groups |
+| [`novu-inbox-integration`](./skills/inbox-integration) | Adding the in-app notification inbox, bell icon, or notification feed to a web app and react native app |
+| [`novu-manage-preferences`](./skills/manage-preferences) | Setting up subscriber notification preferences, workflow defaults, or the Preferences UI |
+| [`novu-framework-integration`](./skills/framework-integration) | Defining notification workflows in code with `@novu/framework` (Bridge Endpoint, steps, controls, React Email, deployment) |
 
 ## Quick Routing
 
-- **"Design an order confirmation workflow"** / **"Which channels for a payment failure?"** / **"Make this notification critical"** → [`skills/design-workflow/`](./skills/design-workflow)
-- **"Set the email body / subject in the Dashboard"** / **"Edit a workflow step via the Novu MCP"** / **"Add a step condition"** → [`skills/dashboard-workflows/`](./skills/dashboard-workflows)
-- **"Send a welcome email"** → [`skills/trigger-notification/`](./skills/trigger-notification)
-- **"Create subscriber groups"** → [`skills/manage-subscribers/`](./skills/manage-subscribers)
-- **"Add a bell icon to my app"** → [`skills/inbox-integration/`](./skills/inbox-integration)
-- **"Let users opt out of emails"** → [`skills/manage-preferences/`](./skills/manage-preferences)
-- **"Define a workflow in code"** / **"Use React Email"** / **"Set up a Bridge Endpoint"** → [`skills/framework-integration/`](./skills/framework-integration)
+- **"Design an order confirmation workflow"** / **"Which channels for a payment failure?"** / **"Make this notification critical"** → [`novu-design-workflow`](./skills/design-workflow)
+- **"Set the email body / subject in the Dashboard"** / **"Edit a workflow step via the Novu MCP"** / **"Add a step condition"** → [`novu-dashboard-workflows`](./skills/dashboard-workflows)
+- **"Send a welcome email"** → [`novu-trigger-notification`](./skills/trigger-notification)
+- **"Create subscriber groups"** → [`novu-manage-subscribers`](./skills/manage-subscribers)
+- **"Add a bell icon to my app"** → [`novu-inbox-integration`](./skills/inbox-integration)
+- **"Let users opt out of emails"** → [`novu-manage-preferences`](./skills/manage-preferences)
+- **"Define a workflow in code"** / **"Use React Email"** / **"Set up a Bridge Endpoint"** → [`novu-framework-integration`](./skills/framework-integration)
 
 ## Common Combinations
 
-- **Full notification system**: `trigger-notification/` + `manage-subscribers/`
-- **In-app notifications**: `trigger-notification/` + `inbox-integration/`
-- **Dashboard authoring**: `design-workflow/` + `dashboard-workflows/`
-- **Design + author in code**: `design-workflow/` + `framework-integration/`
-- **Code-first workflows**: `framework-integration/` + `trigger-notification/`
+- **Full notification system**: `novu-trigger-notification` + `novu-manage-subscribers`
+- **In-app notifications**: `novu-trigger-notification` + `novu-inbox-integration`
+- **Dashboard authoring**: `novu-design-workflow` + `novu-dashboard-workflows`
+- **Design + author in code**: `novu-design-workflow` + `novu-framework-integration`
+- **Code-first workflows**: `novu-framework-integration` + `novu-trigger-notification`
 - **Complete stack**: all seven skills
 
 ## SDK Overview
@@ -62,10 +62,10 @@ Each sub-skill declares its own `inputs:` block. Across the repo:
 
 | Variable | Required by | Purpose |
 | --- | --- | --- |
-| `NOVU_SECRET_KEY` | `trigger-notification`, `manage-subscribers`, `manage-preferences`, `framework-integration`, `dashboard-workflows` | Server-side API key from [dashboard.novu.co/api-keys](https://dashboard.novu.co/api-keys). Used by `@novu/api` and `@novu/framework`. |
-| `NOVU_APPLICATION_IDENTIFIER` | `inbox-integration` | Client-side application identifier. Found in dashboard integration settings. |
+| `NOVU_SECRET_KEY` | `novu-trigger-notification`, `novu-manage-subscribers`, `novu-manage-preferences`, `novu-framework-integration`, `novu-dashboard-workflows` | Server-side API key from [dashboard.novu.co/api-keys](https://dashboard.novu.co/api-keys). Used by `@novu/api` and `@novu/framework`. |
+| `NOVU_APPLICATION_IDENTIFIER` | `novu-inbox-integration` | Client-side application identifier. Found in dashboard integration settings. |
 
-`design-workflow` is pure design guidance and requires no environment variables.
+`novu-design-workflow` is pure design guidance and requires no environment variables.
 
 ## Common Setup
 

@@ -1,5 +1,5 @@
 ---
-name: framework-integration
+name: novu-framework-integration
 description: Build code-first notification workflows with @novu/framework. Use when defining workflows in TypeScript (Zod / JSON Schema / Class Validator), composing channel steps (email, SMS, push, chat, in-app) with action steps (delay, digest, custom), exposing Step Controls for non-technical teammates, rendering React/Vue/Svelte Email templates, hosting the Bridge Endpoint inside Next.js, Express, NestJS, Remix, Nuxt, SvelteKit, H3, or AWS Lambda, syncing to Novu Cloud via CLI / GitHub Actions, securing production with HMAC, or implementing translations, hydration, multi-channel orchestration, and LLM-powered notification logic in code.
 inputs:
   - name: NOVU_SECRET_KEY

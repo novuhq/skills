@@ -1,5 +1,5 @@
 ---
-name: manage-subscribers
+name: novu-manage-subscribers
 description: Create, update, search, and delete subscribers in Novu. Manage topics for group-based notification targeting. Set subscriber credentials for push and chat channels. Use when managing notification recipients, creating subscriber records, organizing subscribers into topics, or configuring channel-specific credentials.
 inputs:
   - name: NOVU_SECRET_KEY

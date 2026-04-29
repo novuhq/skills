@@ -54,15 +54,15 @@ This pulls the skills from the [novuhq/skills](https://github.com/novuhq/skills)
 
 | Skill | Description |
 | --- | --- |
-| [design-workflow](./skills/design-workflow) | Design Novu workflows: channel selection, severity, `critical`, digest defaults, step conditions, and 9 reference templates |
-| [dashboard-workflows](./skills/dashboard-workflows) | Author step content (subject, body, `editorType`, headers, conditions) for workflows defined in the Novu Dashboard or via the Novu MCP |
-| [trigger-notification](./skills/trigger-notification) | Send single, bulk, broadcast, and topic-based notifications |
-| [manage-subscribers](./skills/manage-subscribers) | CRUD operations on subscribers and topics |
-| [inbox-integration](./skills/inbox-integration) | Integrate the in-app notification inbox into React, Next.js, or vanilla JS |
-| [manage-preferences](./skills/manage-preferences) | Configure workflow and subscriber notification preferences |
-| [framework-integration](./skills/framework-integration) | Define notification workflows in code with `@novu/framework` (Bridge Endpoint, steps, controls, React Email, GitOps deployment) |
+| [`novu-design-workflow`](./skills/design-workflow) | Design Novu workflows: channel selection, severity, `critical`, digest defaults, step conditions, and 9 reference templates |
+| [`novu-dashboard-workflows`](./skills/dashboard-workflows) | Author step content (subject, body, `editorType`, headers, conditions) for workflows defined in the Novu Dashboard or via the Novu MCP |
+| [`novu-trigger-notification`](./skills/trigger-notification) | Send single, bulk, broadcast, and topic-based notifications |
+| [`novu-manage-subscribers`](./skills/manage-subscribers) | CRUD operations on subscribers and topics |
+| [`novu-inbox-integration`](./skills/inbox-integration) | Integrate the in-app notification inbox into React, Next.js, or vanilla JS |
+| [`novu-manage-preferences`](./skills/manage-preferences) | Configure workflow and subscriber notification preferences |
+| [`novu-framework-integration`](./skills/framework-integration) | Define notification workflows in code with `@novu/framework` (Bridge Endpoint, steps, controls, React Email, GitOps deployment) |
 
-> **Breaking change:** Skill paths moved under `skills/`. If you previously installed a single skill named `novu`, re-run `npx skills add novuhq/skills` to pick up the seven discrete skills.
+> **Breaking change:** Skills are now namespaced under `novu-*` and live under `skills/`. If you previously installed a single skill named `novu`, re-run `npx skills add novuhq/skills` to pick up the seven discrete skills.
 
 
 
