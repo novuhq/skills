@@ -1,6 +1,11 @@
 ---
 name: manage-preferences
 description: Configure notification preferences in Novu at the workflow and subscriber level. Set default channel preferences (email, SMS, push, chat, in-app), mark preferences as read-only or subscriber-editable, and manage subscriber-specific overrides. Use when setting up notification opt-in/opt-out, configuring per-channel delivery preferences, or building a preferences management UI.
+inputs:
+  - name: NOVU_SECRET_KEY
+    description: "Server-side API key from https://dashboard.novu.co/api-keys. Used by @novu/api."
+    required: true
+    type: secret
 ---
 
 # Manage Preferences

@@ -1,6 +1,11 @@
 ---
 name: dashboard-workflows
 description: Author step content for Novu workflows defined in the Dashboard or generated/edited via the Novu MCP. Use when filling in step controls (subject, body, editorType, headers, body, conditions) for email, in-app, sms, push, chat, delay, digest, throttle, or HTTP Request steps.
+inputs:
+  - name: NOVU_SECRET_KEY
+    description: "Server-side API key from https://dashboard.novu.co/api-keys. Used by the Novu MCP and Dashboard automation."
+    required: true
+    type: secret
 ---
 
 # Dashboard Workflows

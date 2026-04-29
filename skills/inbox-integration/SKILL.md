@@ -1,6 +1,11 @@
 ---
 name: inbox-integration
 description: Integrate Novu's in-app notification inbox into web applications. Supports React, Next.js, and vanilla JavaScript. Includes the Inbox component (bell icon + notification feed), composable components (Bell, Notifications, InboxContent, Preferences), headless hooks, branded theming, custom render props, multi-tenancy via contexts, tabs, localization, and HMAC security. Use when adding an in-app notification center, bell icon, notification feed, real-time notification updates, or building a personalized and branded notification experience.
+inputs:
+  - name: NOVU_APPLICATION_IDENTIFIER
+    description: "Application identifier for client-side Inbox integration. Found in dashboard integration settings."
+    required: true
+    type: string
 ---
 
 # Inbox Integration
