@@ -66,7 +66,7 @@ preferences: {
 | Field | Default | Notes |
 | --- | --- | --- |
 | `all.enabled` | `true` | Fallback for any channel not specified in `channels` |
-| `all.readOnly` | `false` | If `true`, subscribers cannot disable any channel — workflow is **critical** |
+| `all.readOnly` | `false` | If `true`, subscribers cannot disable channels in Preferences UI; this does **not** make the workflow critical |
 | `channels.<channel>.enabled` | `true` | Per-channel default |
 
 ## Channel Steps

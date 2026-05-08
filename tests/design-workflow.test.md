@@ -62,7 +62,7 @@ A workflow is configured with `severity: 'high'` and a `regular` digest with a 1
 
 **Correct: C**
 
-Digest is auto-skipped when `severity > HIGH` or `critical: true`. High-severity notifications must reach the user without aggregation delay. Combining `critical` (or very high severity) with digest is a design smell.
+Digest is auto-skipped when `severity: HIGH` or `critical: true`. High-severity notifications must reach the user without aggregation delay. Combining `critical` with digest is a design smell.
 
 ---
 

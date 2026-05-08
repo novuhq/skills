@@ -15,7 +15,7 @@ A `regular` digest collects events that arrive within the look-back window after
 
 ## Skip the Digest When
 
-- `severity > HIGH`, or
+- `severity: HIGH`, or
 - `critical: true`
 
 Critical and very-high-severity workflows must deliver immediately. The digest step is auto-skipped in those cases.

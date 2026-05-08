@@ -53,7 +53,7 @@ In practice you usually want `critical: true` (forces delivery). `readOnly: true
 | `severity: HIGH`, `critical: true`                | **no**               | **no**       | **no**          | high          |
 | `severity` unset, `critical: true`                | **no**               | **no**       | **no**          | default       |
 
-Digest is automatically skipped when `severity > HIGH` **or** `critical: true`.
+Digest is automatically skipped when `severity: HIGH` **or** `critical: true`.
 
 ## Picking the Right Combination
 

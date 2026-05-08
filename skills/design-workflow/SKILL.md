@@ -78,7 +78,7 @@ When you add a digest step, default to:
 
 **Skip the digest** when:
 
-- `severity > HIGH`, or
+- `severity: HIGH`, or
 - `critical: true`
 
 See [`references/digest-defaults.md`](./references/digest-defaults.md) for digest key composition and conversational examples.
