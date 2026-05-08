@@ -1,6 +1,11 @@
 ---
-name: manage-preferences
+name: novu-manage-preferences
 description: Configure notification preferences in Novu at the workflow and subscriber level. Set default channel preferences (email, SMS, push, chat, in-app), mark preferences as read-only or subscriber-editable, and manage subscriber-specific overrides. Use when setting up notification opt-in/opt-out, configuring per-channel delivery preferences, or building a preferences management UI.
+inputs:
+  - name: NOVU_SECRET_KEY
+    description: "Server-side API key from https://dashboard.novu.co/api-keys. Used by @novu/api."
+    required: true
+    type: secret
 ---
 
 # Manage Preferences
@@ -30,6 +35,8 @@ const alertWorkflow = workflow("system-alert", execute, {
 });
 ```
 
+> Authoring workflows in code? See [`framework-integration`](../framework-integration) for the full Framework setup, Bridge Endpoint, step controls, and deployment.
+
 ### Channel Types
 
 | Channel | Description |
@@ -42,7 +49,7 @@ const alertWorkflow = workflow("system-alert", execute, {
 
 ### Read-Only Preferences
 
-Set `readOnly: true` to prevent subscribers from opting out. Use for critical/mandatory notifications:
+Set `readOnly: true` to **hide a workflow's channels from the Preferences UI** — subscribers can't toggle them on or off:
 
 ```typescript
 const criticalAlertWorkflow = workflow("critical-alert", execute, {
@@ -51,6 +58,17 @@ const criticalAlertWorkflow = workflow("critical-alert", execute, {
   },
 });
 ```
+
+### `readOnly` vs `critical` — pick the right one
+
+These are different mechanisms with different guarantees. See [`design-workflow/references/severity-and-critical.md`](../design-workflow/references/severity-and-critical.md) for the full matrix.
+
+| Flag                                 | What it does                                                                                |
+| ------------------------------------ | ------------------------------------------------------------------------------------------- |
+| `preferences.all.readOnly: true`     | **UI only.** Hides the workflow from the Preferences UI so subscribers can't toggle it.     |
+| `critical: true` (workflow-level)    | **Runtime.** Bypasses subscriber preferences, skips digest, runs without delays.            |
+
+If you need the notification to **always be delivered** (account suspended, security alert, password reset), set `critical: true` — `readOnly: true` alone won't override existing subscriber overrides at runtime.
 
 ### Optional (Subscriber-Editable) Preferences
 

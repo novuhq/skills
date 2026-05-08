@@ -2,7 +2,7 @@
 
 Tests the ability to route user requests to the correct sub-skill.
 
-Pass threshold: 6/8
+Pass threshold: 7/10
 
 ---
 
@@ -135,3 +135,37 @@ Which skills are needed?
 **Correct: C**
 
 A full notification system needs all four skills: trigger notifications, manage recipients, integrate the inbox, and configure preferences.
+
+---
+
+## Scenario 9
+
+A developer says: "I want to design an order-confirmation workflow — what channels should I include and should it be digested?"
+
+Which skill should handle this?
+
+- A) `framework-integration/` — workflows are defined in code
+- B) `trigger-notification/` — they want to send an order confirmation
+- C) `design-workflow/` — they're asking about channel selection and digest behavior
+- D) `manage-preferences/` — channel choice is a preference
+
+**Correct: C**
+
+`design-workflow/` covers the design-time decisions (which channels, severity, `critical`, digest) regardless of whether the workflow is later authored in the Dashboard or in code via `@novu/framework`.
+
+---
+
+## Scenario 10
+
+A developer says: "What channels should a 'payment failed' alert send on, and should it bypass user preferences?"
+
+Which skill should handle this?
+
+- A) `manage-preferences/` — bypassing preferences is a preference setting
+- B) `design-workflow/` — channel selection + severity/`critical` decisions
+- C) `trigger-notification/` — payment failure is an event
+- D) `inbox-integration/` — they want a high-severity in-app alert
+
+**Correct: B**
+
+`design-workflow/` is the source of channel-selection rules and the severity/`critical` matrix. `manage-preferences/` documents how `critical` interacts with subscriber preferences but does not own the design decision.

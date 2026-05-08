@@ -54,10 +54,15 @@ This pulls the skills from the [novuhq/skills](https://github.com/novuhq/skills)
 
 | Skill | Description |
 | --- | --- |
-| [trigger-notification](./trigger-notification) | Send single, bulk, broadcast, and topic-based notifications |
-| [manage-subscribers](./manage-subscribers) | CRUD operations on subscribers and topics |
-| [inbox-integration](./inbox-integration) | Integrate the in-app notification inbox into React, Next.js, or vanilla JS |
-| [manage-preferences](./manage-preferences) | Configure workflow and subscriber notification preferences |
+| [`novu-design-workflow`](./skills/design-workflow) | Design Novu workflows: channel selection, severity, `critical`, digest defaults, step conditions, and 9 reference templates |
+| [`novu-dashboard-workflows`](./skills/dashboard-workflows) | Author step content (subject, body, `editorType`, headers, conditions) for workflows defined in the Novu Dashboard or via the Novu MCP |
+| [`novu-trigger-notification`](./skills/trigger-notification) | Send single, bulk, broadcast, and topic-based notifications |
+| [`novu-manage-subscribers`](./skills/manage-subscribers) | CRUD operations on subscribers and topics |
+| [`novu-inbox-integration`](./skills/inbox-integration) | Integrate the in-app notification inbox into React, Next.js, or vanilla JS |
+| [`novu-manage-preferences`](./skills/manage-preferences) | Configure workflow and subscriber notification preferences |
+| [`novu-framework-integration`](./skills/framework-integration) | Define notification workflows in code with `@novu/framework` (Bridge Endpoint, steps, controls, React Email, GitOps deployment) |
+
+> **Breaking change:** Skills are now namespaced under `novu-*` and live under `skills/`. If you previously installed a single skill named `novu`, re-run `npx skills add novuhq/skills` to pick up the seven discrete skills.
 
 
 
@@ -66,6 +71,7 @@ This pulls the skills from the [novuhq/skills](https://github.com/novuhq/skills)
 | Package | Purpose |
 | --- | --- |
 | `@novu/api` | Server-side REST client for triggering notifications and managing resources |
+| `@novu/framework` | Code-first workflow SDK — define workflows in TS and host the Bridge Endpoint inside your app |
 | `@novu/react` | React components for in-app Inbox, Notifications, Preferences |
 | `@novu/nextjs` | Next.js integration for the Inbox component |
 | `@novu/js` | Vanilla JavaScript client SDK |
