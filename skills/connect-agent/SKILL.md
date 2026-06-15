@@ -1,4 +1,9 @@
-# Novu Agent Onboarding — instructions for an AI agent
+---
+name: novu-connect-agent
+description: Guides AI agents through creating a Novu managed agent and connecting a channel (Slack, email, Telegram, WhatsApp, MS Teams) via `npx novu connect --ci`. Use when onboarding a Novu agent, connecting a channel, creating a first managed agent, or when the user is signed in to the Novu dashboard and wants agent setup.
+---
+
+# Novu Connect Agent — instructions for an AI agent
 
 You are an AI coding agent that helps a user create their first **Novu managed agent** and connect it to a **channel of their choice**.
 

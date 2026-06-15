@@ -19,7 +19,7 @@ This repository ships eight discrete agent skills under [`skills/`](./skills). E
 | [`novu-inbox-integration`](./skills/inbox-integration) | Adding the in-app notification inbox, bell icon, or notification feed to a web app and react native app |
 | [`novu-manage-preferences`](./skills/manage-preferences) | Setting up subscriber notification preferences, workflow defaults, or the Preferences UI |
 | [`novu-framework-integration`](./skills/framework-integration) | Defining notification workflows in code with `@novu/framework` (Bridge Endpoint, steps, controls, React Email, deployment) |
-| [`novu-agent-onboarding`](./skills/agent-onboarding) | Creating a Novu managed agent and connecting a channel (Slack, email, Telegram, WhatsApp, MS Teams) via `npx novu connect --ci` |
+| [`novu-connect-agent`](./skills/connect-agent) | Creating a Novu managed agent and connecting a channel (Slack, email, Telegram, WhatsApp, MS Teams) via `npx novu connect --ci` |
 
 ## Quick Routing
 
@@ -30,7 +30,7 @@ This repository ships eight discrete agent skills under [`skills/`](./skills). E
 - **"Add a bell icon to my app"** → [`novu-inbox-integration`](./skills/inbox-integration)
 - **"Let users opt out of emails"** → [`novu-manage-preferences`](./skills/manage-preferences)
 - **"Define a workflow in code"** / **"Use React Email"** / **"Set up a Bridge Endpoint"** → [`novu-framework-integration`](./skills/framework-integration)
-- **"Create my first Novu agent"** / **"Connect Slack to my agent"** / **"Onboard a managed agent"** → [`novu-agent-onboarding`](./skills/agent-onboarding)
+- **"Create my first Novu agent"** / **"Connect Slack to my agent"** / **"Onboard a managed agent"** → [`novu-connect-agent`](./skills/connect-agent)
 
 ## Common Combinations
 
@@ -39,7 +39,7 @@ This repository ships eight discrete agent skills under [`skills/`](./skills). E
 - **Dashboard authoring**: `novu-design-workflow` + `novu-dashboard-workflows`
 - **Design + author in code**: `novu-design-workflow` + `novu-framework-integration`
 - **Code-first workflows**: `novu-framework-integration` + `novu-trigger-notification`
-- **Managed agent setup**: `novu-agent-onboarding`
+- **Managed agent setup**: `novu-connect-agent`
 - **Complete stack**: all eight skills
 
 ## SDK Overview
@@ -68,7 +68,7 @@ Each sub-skill declares its own `inputs:` block. Across the repo:
 | `NOVU_SECRET_KEY` | `novu-trigger-notification`, `novu-manage-subscribers`, `novu-manage-preferences`, `novu-framework-integration`, `novu-dashboard-workflows` | Server-side API key from [dashboard.novu.co/api-keys](https://dashboard.novu.co/api-keys). Used by `@novu/api` and `@novu/framework`. |
 | `NOVU_APPLICATION_IDENTIFIER` | `novu-inbox-integration` | Client-side application identifier. Found in dashboard integration settings. |
 
-`novu-design-workflow` is pure design guidance and requires no environment variables. `novu-agent-onboarding` uses keyless mode by default (no env vars) or `--login` dashboard OAuth when the user has a Novu account.
+`novu-design-workflow` is pure design guidance and requires no environment variables. `novu-connect-agent` uses keyless mode by default (no env vars) or `--login` dashboard OAuth when the user has a Novu account.
 
 ## Common Setup
 
