@@ -3,7 +3,7 @@ name: novu-connect-agent
 description: Guides AI agents through creating a Novu managed agent and connecting a channel (Slack, email, Telegram, WhatsApp, MS Teams) via `npx novu@latest connect`. Use when onboarding a Novu agent, connecting a channel, creating a first managed agent, or when the user is signed in to the Novu dashboard and wants agent setup.
 ---
 
-# Novu Connect Agent — instructions for an AI agent
+# Novu Agent Onboarding — instructions for an AI agent
 
 You are an AI coding agent that helps a user create their first **Novu managed agent** and connect it to a **channel of their choice**.
 
@@ -76,9 +76,9 @@ When the user must pick from a **fixed set** of options (channel, approve/reject
 
 1. **Channel** — ask which channel. Keyless + WhatsApp / MS Teams → dashboard redirect only (Steps 2–5 skipped). Authenticated (`--login`) supports all channels.
 2. **Purpose** — infer a 1–2 sentence agent description **for the product's end users** from the project; confirm with the user.
-3. **Run** — connect command from Step 3 (plus `--login` only when authenticated), streamed.
+3. **Run** — connect command from Step 3 (`--ci`, plus `--login` only when authenticated), streamed.
 4. **Handoff** — dashboard OAuth first when using `--login` (`NOVU_CONNECT_AUTH_URL_FILE=`), then channel-specific next steps. For Slack/Telegram, present the inline secure-page-vs-paste-in-chat token choice only when the token is actually needed. Let the CLI poll.
-5. **Report** — relay the CLI's success or error. Keyless: explain demo limit → claim. Authenticated: report agent identifier + dashboard URL only.
+5. **Report** — relay the CLI's success or error, give a 1–2 sentence recap of what onboarding set up, and point the user to the next step. Keyless: explain demo limit → claim link. Authenticated: report agent identifier + dashboard URL.
 
 ---
 
@@ -187,6 +187,7 @@ Set the agent description in an environment variable first — do **not** paste 
 export NOVU_AGENT_DESCRIPTION='<confirmed agent description>'
 
 npx novu@latest connect "$NOVU_AGENT_DESCRIPTION" \
+  --ci \
   --login \
   --channel <slack|email|telegram|whatsapp|teams|skip>
 ```
@@ -197,6 +198,7 @@ npx novu@latest connect "$NOVU_AGENT_DESCRIPTION" \
 export NOVU_AGENT_DESCRIPTION='<confirmed agent description>'
 
 npx novu@latest connect "$NOVU_AGENT_DESCRIPTION" \
+  --ci \
   --channel <slack|email|telegram|skip>
 ```
 
@@ -208,6 +210,7 @@ Never pass `--channel whatsapp` or `--channel teams` in keyless mode — those r
 export NOVU_AGENT_DESCRIPTION='<confirmed agent description>'
 
 npx novu@latest connect "$NOVU_AGENT_DESCRIPTION" \
+  --ci \
   --login \
   --channel slack
 ```
@@ -237,6 +240,7 @@ export NOVU_AGENT_DESCRIPTION='<confirmed agent description>'
 export SLACK_CONFIG_TOKEN='<xoxe.xoxp-...>'
 
 npx novu@latest connect "$NOVU_AGENT_DESCRIPTION" \
+  --ci \
   --login \
   --channel slack \
   --slack-config-token "$SLACK_CONFIG_TOKEN"
@@ -289,15 +293,21 @@ Read Connect shell stdout (via **Await**, not log files) and act based on the ch
   1. Open <https://api.slack.com/apps> and generate an **App Configuration Token** (access token starting with `xoxe.xoxp-`)
   2. Open the setup link and paste the token there — **not in this chat**
 
-  The CLI polls until the token is saved (~5 min). Then **Await** the OAuth handoff line and copy its value:
+  The CLI polls until the token is saved (~5 min). **Keep Awaiting the Connect shell** — do not set a timer. When the token lands, stdout prints:
+
+  ```text
+  NOVU_CONNECT_SLACK_CONFIG_TOKEN_SAVED=1
+  ```
+
+  Then **Await** the OAuth handoff line and copy its value:
 
   ```text
   NOVU_CONNECT_SLACK_AUTHORIZE_URL=<url>
   ```
 
-  Paste that exact `<url>` into chat and ask them to approve the install within 5 minutes. **Await** until the CLI poll finishes. Re-run on timeout (the Slack app is reused).
+  Paste that exact `<url>` into chat, framing it as a fallback link — e.g. "If the Slack install page didn't open automatically, use this link to approve the install (within 5 minutes)." **Await** until the CLI poll finishes. Re-run on timeout (the Slack app is reused).
 
-  **If they pick `in_chat`:** ask for the token in chat as free-text (not the picker), warn once that it will live in chat history, then **kill the first Connect shell** (the Step 3 process still polling the secure setup page) and **re-run the Step 3 connect command once with `--slack-config-token`** (set via an env var). That supersedes the secure setup page — the CLI skips the `NOVU_CONNECT_SLACK_SETUP_URL` handoff and goes straight to OAuth. **Await** the `NOVU_CONNECT_SLACK_AUTHORIZE_URL=<url>` line, paste that exact URL into chat, and ask them to approve the install within 5 minutes.
+  **If they pick `in_chat`:** ask for the token in chat as free-text (not the picker), warn once that it will live in chat history, then **kill the first Connect shell** (the Step 3 process still polling the secure setup page) and **re-run the Step 3 connect command once with `--slack-config-token`** (set via an env var). That supersedes the secure setup page — the CLI skips the `NOVU_CONNECT_SLACK_SETUP_URL` handoff and goes straight to OAuth. **Await** the `NOVU_CONNECT_SLACK_AUTHORIZE_URL=<url>` line, paste that exact URL into chat as a fallback link — e.g. "If the Slack install page didn't open automatically, use this link to approve the install (within 5 minutes)."
 
 - **email** — watch for these machine-readable lines (plain stdout, no ANSI):
 
@@ -350,7 +360,7 @@ Read Connect shell stdout (via **Await**, not log files) and act based on the ch
 
 ## Step 5 — Report the result
 
-**Goal:** relay what the CLI printed and point the user at the channel or dashboard.
+**Goal:** relay what the CLI printed, give a short recap of what onboarding set up, and point the user at the channel and the next step (claim link for keyless, dashboard for authenticated).
 
 On success the CLI exits `0` and prints:
 
@@ -358,12 +368,21 @@ On success the CLI exits `0` and prints:
 ✓ Your agent is live.
   Agent: <name> (<identifier>)
   → Check <Channel> — your agent just messaged you.
-  Dashboard: <dashboard url>
+  Dashboard: <dashboard url>            # authenticated only
+  Claim your agent: <claim url>         # keyless only
 ```
 
-**Authenticated:** tell the user their agent is live in their Development environment — message it on the connected channel or open the dashboard URL.
+**After leading with the CLI's result, give a 1–2 sentence recap** of what onboarding set up — consistent with the conclusion-first operating principle. Before the channel/next-step pointer, briefly explain what the connect run built so the result isn't a black box. Keep it to one or two sentences, in plain language, e.g.:
 
-**Keyless:** same as above, plus explain the **demo limit** (~5 free replies) and the in-channel **"Sign up & keep this agent"** claim link.
+> _"Here's what Novu built from your description: a hosted AI agent — its system prompt, the right tools and skills, MCP servers for the services you named, and a connection to &lt;channel&gt; so it can message your users."_
+
+Adapt the recap to what actually happened (drop the MCP clause when no integrations were named, name the channel that was connected, or say the agent was created without a channel for `skip`).
+
+**Then tell the user how to proceed.**
+
+**Authenticated:** after the recap, tell the user their agent is live in their Development environment — they can message it on the connected channel or open the dashboard URL to refine it (tweak its description and prompt, change tools, skills, and MCP connections, manage channels, and watch its activity).
+
+**Keyless:** after the recap, surface the CLI's **`Claim your agent:`** link (not the dashboard agent URL). Explain the **demo limit** (~5 free replies) and that signing up via the claim link moves the agent, its channel, and the conversation into their own account — after that they can manage and refine it from the dashboard.
 
 **On failure**, surface the error and matching fix:
 
@@ -387,7 +406,8 @@ Run `novu@latest connect --help` for the full contract. Keep help text in sync w
 
 | Flag | Purpose |
 |---|---|
-| `connect "<description>"` | Positional agent description (required). |
+| `connect "<description>"` | Positional agent description (required in `--ci`). |
+| `--ci` | Non-interactive mode (required). |
 | `--login` | Dashboard OAuth — use when the user has a Novu account or the dashboard prompt rule applies. |
 | `--region <us\|eu>` | Target Novu Cloud region (default: `us`). |
 | `--channel <slack\|email\|telegram\|whatsapp\|teams\|skip>` | Channel to connect. `whatsapp`/`teams` require `--login`. |
@@ -416,4 +436,4 @@ You are done when:
 2. Dashboard OAuth completed (when using `--login`), or keyless bootstrap succeeded.
 3. You delivered channel handoffs (or noted `skip` / whatsapp-teams dashboard URL).
 4. Connect shell printed `✓ Your agent is live.` (exit `0`); CLI poll validated handoffs where applicable.
-5. You reported agent identifier + Dashboard URL (and keyless claim path if applicable).
+5. You reported agent identifier + next step (claim link for keyless, dashboard URL for authenticated), gave a brief recap of what onboarding set up, and explained how the user can keep going.
