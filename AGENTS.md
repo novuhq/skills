@@ -19,7 +19,7 @@ This repository ships eight discrete agent skills under [`skills/`](./skills). E
 | [`novu-inbox-integration`](./skills/inbox-integration) | Adding the in-app notification inbox, bell icon, or notification feed to a web app and react native app |
 | [`novu-manage-preferences`](./skills/manage-preferences) | Setting up subscriber notification preferences, workflow defaults, or the Preferences UI |
 | [`novu-framework-integration`](./skills/framework-integration) | Defining notification workflows in code with `@novu/framework` (Bridge Endpoint, steps, controls, React Email, deployment) |
-| [`novu-connect-agent`](./skills/connect-agent) | Creating a Novu managed agent and connecting a channel (Slack, email, Telegram, WhatsApp, MS Teams) via `npx novu connect --ci` |
+| [`novu-connect-agent`](./skills/connect-agent) | Creating a Novu managed agent and connecting a channel (Slack, email, Telegram, WhatsApp, MS Teams) via `npx novu connect` |
 
 ## Quick Routing
 

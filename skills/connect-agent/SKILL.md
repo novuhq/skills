@@ -1,6 +1,6 @@
 ---
 name: novu-connect-agent
-description: Guides AI agents through creating a Novu managed agent and connecting a channel (Slack, email, Telegram, WhatsApp, MS Teams) via `npx novu connect --ci`. Use when onboarding a Novu agent, connecting a channel, creating a first managed agent, or when the user is signed in to the Novu dashboard and wants agent setup.
+description: Guides AI agents through creating a Novu managed agent and connecting a channel (Slack, email, Telegram, WhatsApp, MS Teams) via `npx novu connect`. Use when onboarding a Novu agent, connecting a channel, creating a first managed agent, or when the user is signed in to the Novu dashboard and wants agent setup.
 ---
 
 # Novu Connect Agent — instructions for an AI agent
@@ -76,7 +76,7 @@ When the user must pick from a **fixed set** of options (channel, approve/reject
 
 1. **Channel** — ask which channel. Keyless + WhatsApp / MS Teams → dashboard redirect only (Steps 2–5 skipped). Authenticated (`--login`) supports all channels.
 2. **Purpose** — infer a 1–2 sentence agent description **for the product's end users** from the project; confirm with the user.
-3. **Run** — connect command from Step 3 (`--ci`, plus `--login` only when authenticated), streamed.
+3. **Run** — connect command from Step 3 (plus `--login` only when authenticated), streamed.
 4. **Handoff** — dashboard OAuth first when using `--login` (`NOVU_CONNECT_AUTH_URL_FILE=`), then channel-specific next steps. For Slack/Telegram, present the inline secure-page-vs-paste-in-chat token choice only when the token is actually needed. Let the CLI poll.
 5. **Report** — relay the CLI's success or error. Keyless: explain demo limit → claim. Authenticated: report agent identifier + dashboard URL only.
 
@@ -187,7 +187,6 @@ Set the agent description in an environment variable first — do **not** paste 
 export NOVU_AGENT_DESCRIPTION='<confirmed agent description>'
 
 npx novu@latest connect "$NOVU_AGENT_DESCRIPTION" \
-  --ci \
   --login \
   --channel <slack|email|telegram|whatsapp|teams|skip>
 ```
@@ -198,7 +197,6 @@ npx novu@latest connect "$NOVU_AGENT_DESCRIPTION" \
 export NOVU_AGENT_DESCRIPTION='<confirmed agent description>'
 
 npx novu@latest connect "$NOVU_AGENT_DESCRIPTION" \
-  --ci \
   --channel <slack|email|telegram|skip>
 ```
 
@@ -210,7 +208,6 @@ Never pass `--channel whatsapp` or `--channel teams` in keyless mode — those r
 export NOVU_AGENT_DESCRIPTION='<confirmed agent description>'
 
 npx novu@latest connect "$NOVU_AGENT_DESCRIPTION" \
-  --ci \
   --login \
   --channel slack
 ```
@@ -240,7 +237,6 @@ export NOVU_AGENT_DESCRIPTION='<confirmed agent description>'
 export SLACK_CONFIG_TOKEN='<xoxe.xoxp-...>'
 
 npx novu@latest connect "$NOVU_AGENT_DESCRIPTION" \
-  --ci \
   --login \
   --channel slack \
   --slack-config-token "$SLACK_CONFIG_TOKEN"
@@ -391,8 +387,7 @@ Run `novu@latest connect --help` for the full contract. Keep help text in sync w
 
 | Flag | Purpose |
 |---|---|
-| `connect "<description>"` | Positional agent description (required in `--ci`). |
-| `--ci` | Non-interactive mode (required). |
+| `connect "<description>"` | Positional agent description (required). |
 | `--login` | Dashboard OAuth — use when the user has a Novu account or the dashboard prompt rule applies. |
 | `--region <us\|eu>` | Target Novu Cloud region (default: `us`). |
 | `--channel <slack\|email\|telegram\|whatsapp\|teams\|skip>` | Channel to connect. `whatsapp`/`teams` require `--login`. |
