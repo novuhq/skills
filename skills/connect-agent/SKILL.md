@@ -1,6 +1,6 @@
 ---
 name: novu-connect-agent
-description: Guides AI agents through creating a Novu managed agent and connecting a channel (Slack, email, Telegram, WhatsApp, MS Teams) via `npx novu connect`. Use when onboarding a Novu agent, connecting a channel, creating a first managed agent, or when the user is signed in to the Novu dashboard and wants agent setup.
+description: Guides AI agents through creating a Novu managed agent and connecting a channel (Slack, email, Telegram, WhatsApp, MS Teams) via `npx novu@latest connect`. Use when onboarding a Novu agent, connecting a channel, creating a first managed agent, or when the user is signed in to the Novu dashboard and wants agent setup.
 ---
 
 # Novu Connect Agent — instructions for an AI agent

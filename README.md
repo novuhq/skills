@@ -61,7 +61,7 @@ This pulls the skills from the [novuhq/skills](https://github.com/novuhq/skills)
 | [`novu-inbox-integration`](./skills/inbox-integration) | Integrate the in-app notification inbox into React, Next.js, or vanilla JS |
 | [`novu-manage-preferences`](./skills/manage-preferences) | Configure workflow and subscriber notification preferences |
 | [`novu-framework-integration`](./skills/framework-integration) | Define notification workflows in code with `@novu/framework` (Bridge Endpoint, steps, controls, React Email, GitOps deployment) |
-| [`novu-connect-agent`](./skills/connect-agent) | Create a Novu managed agent and connect a channel (Slack, email, Telegram, WhatsApp, MS Teams) via `npx novu connect` |
+| [`novu-connect-agent`](./skills/connect-agent) | Create a Novu managed agent and connect a channel (Slack, email, Telegram, WhatsApp, MS Teams) via `npx novu@latest connect` |
 
 > **Breaking change:** Skills are now namespaced under `novu-*` and live under `skills/`. If you previously installed a single skill named `novu`, re-run `npx skills add novuhq/skills` to pick up the eight discrete skills.
 
